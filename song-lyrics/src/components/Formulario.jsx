@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Formulario = () => {
+const Formulario = ({setBusquedaLetra}) => {
 
     const [ busqueda, setBusqueda ] = useState({
         artista: '',
@@ -29,6 +29,7 @@ const Formulario = () => {
         }
 
         setError(false);
+        setBusquedaLetra(busqueda);
     }
 
     return (
