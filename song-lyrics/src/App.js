@@ -9,6 +9,7 @@ function App() {
   const [ busquedaLetra, setBusquedaLetra ] = useState({});
 
   const [ letra, setLetra ] = useState('')
+  const [ info, setInfo ] = useState({})
 
   useEffect(() => {
 
@@ -17,11 +18,20 @@ function App() {
     const consultaApiLetra = async () => {
 
         const { artista, cancion } = busquedaLetra;
-        const url = `https://api.lyrics.ovh/v1/${artista}/${cancion}`;
+        const urlLycrics = `https://api.lyrics.ovh/v1/${artista}/${cancion}`;
+        const urlAudiobd = `https://www.theaudiodb.com/api/v1/json/2/search.php?s=${artista}`;
 
-        const result = await axios(url);
+        // const rpta = await fetch(urlAudiobd);
+        // const result = await rpta.json();
+        // console.log(result);
 
-        setLetra(result.data.lyrics);
+        const [ letra, info ] = await Promise.all([
+            axios(urlLycrics),
+            axios(urlAudiobd)
+        ])
+
+        setLetra(letra.data.lyrics);
+        setInfo(info.data.artists[0]);
     }
 
     consultaApiLetra();
