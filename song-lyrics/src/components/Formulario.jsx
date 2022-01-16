@@ -33,6 +33,7 @@ const Formulario = () => {
 
     return (
         <div className='bg-info'>
+            { error ? <p className='alert alert-danger text-center p-2'>Todos los Campos son Obligatorios</p> : null }
             <div className='container'>
                 <div className='row'>
                     <form
