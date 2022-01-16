@@ -1,6 +1,7 @@
 import { Fragment, useState, useEffect } from "react";
 import Formulario from "./components/Formulario";
 import Cancion from "./components/Cancion";
+import Informacion from "./components/Informacion";
 
 import axios from 'axios';
 
@@ -21,10 +22,6 @@ function App() {
         const urlLycrics = `https://api.lyrics.ovh/v1/${artista}/${cancion}`;
         const urlAudiobd = `https://www.theaudiodb.com/api/v1/json/2/search.php?s=${artista}`;
 
-        // const rpta = await fetch(urlAudiobd);
-        // const result = await rpta.json();
-        // console.log(result);
-
         const [ letra, info ] = await Promise.all([
             axios(urlLycrics),
             axios(urlAudiobd)
@@ -36,7 +33,7 @@ function App() {
 
     consultaApiLetra();
 
-  }, [busquedaLetra])
+  }, [busquedaLetra, info])
 
   return (
     <Fragment>
@@ -46,7 +43,8 @@ function App() {
       <div className="container mt-5">
         <div className="row">
           <div className="col-md-6">
-
+              <Informacion
+                    info={info}/>
           </div>
 
           <div className="col-md-6">
